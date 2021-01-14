@@ -1,0 +1,17 @@
+---
+- hosts: india
+  tasks:
+  - name: Add User
+    user:
+     name: ansible
+     shell: /bin/bash
+     state: present
+  - name: aducem keye
+    authorized_key:
+     user: ansible
+     state: present
+     key: "{{ lookup('file', '/home/ansible/.ssh/id_rsa.pub') }}"
+  - name: Admin Rights
+    lineinfile:
+     path: /etc/sudoers
+     line: 'ansible  ALL=(ALL) NOPASSWD: ALL'
